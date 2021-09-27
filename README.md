@@ -1,5 +1,5 @@
 
-# Estative Admin
+# React Starting Pack
 
 This example was created to accelerate the start of the project using "React.js". Project based on **react-create-app**
 ( [GITHUB](https://github.com/facebookincubator/create-react-app) )
