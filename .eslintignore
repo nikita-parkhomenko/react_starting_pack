@@ -1,0 +1,3 @@
+*/test/*.js
+src/constants/app-config.js
+src/registerServiceWorker.js

@@ -1,0 +1,37 @@
+.input-image {
+  & > .input-image-container {
+    color: #bdbdbd;
+    padding: 20px;
+    text-align: center;
+    border: 3px dashed #eeeeee;
+    border-radius: 2px;
+    background-color: #fafafa;
+    transition: border .24s ease-in-out;
+
+    &.active {
+      border-color: #2196f3;
+    }
+
+    &.accept {
+      border-color: #00e676;
+    }
+
+    &.reject {
+      border-color: #ff1744;
+    }
+  }
+
+  .input-image-content {
+    display: flex;
+    justify-content: flex-start;
+
+    & > .input-image-picture {
+      margin-bottom: 10px;
+      margin-right: 10px;
+      object-fit: cover;
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+}

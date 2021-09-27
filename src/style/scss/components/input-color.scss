@@ -1,0 +1,16 @@
+.input-color {
+  & > .input-color-control {
+    color: #ffffff;
+  }
+
+  & > .input-color-picker-holder {
+    position: relative;
+
+    & > .input-color-picker {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      z-index: 100;
+    }
+  }
+}
