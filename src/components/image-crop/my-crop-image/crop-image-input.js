@@ -6,9 +6,11 @@ import { useDropzone } from 'react-dropzone';
 import React, { useState, useCallback } from 'react';
 
 // local dependencies
-import { RFControlWrap } from '../redux-form-helpers';
+import { useCropImageModal } from './crop-image-modal';
+import { RFControlWrap } from '../../redux-form-helpers';
 
-const InputCropImage = ({ input, meta, label, skipTouch, classNameFormGroup, usePopover, cropOptions, ...attr }) => {
+const InputCropImage = props => {
+  const { input, meta, label, skipTouch, classNameFormGroup, usePopover, cropOptions, dir, ...attr } = props;
   const [files, setFiles] = useState([]);
 
   let message = '';
@@ -18,6 +20,8 @@ const InputCropImage = ({ input, meta, label, skipTouch, classNameFormGroup, use
       attr.className += meta.valid ? ' is-valid' : ' is-invalid';
     }
   }
+  // NOTE get modal window controls
+  const [openImageCropModal] = useCropImageModal();
 
   const onDrop = useCallback(acceptedFiles => {
     setFiles(prevFiles => [...prevFiles, ...acceptedFiles.map(file =>
@@ -49,7 +53,9 @@ const InputCropImage = ({ input, meta, label, skipTouch, classNameFormGroup, use
     usePopover={usePopover}
     className={cn('input-image', classNameFormGroup)}
   >
-    <div { ...getRootProps({ className: cn('input-image-container', { active: isDragActive, accept: isDragAccept, reject: isDragReject }) }) }>
+    <div { ...getRootProps({
+      className: cn('input-image-container', { active: isDragActive, accept: isDragAccept, reject: isDragReject })
+    }) }>
       <input { ...getInputProps({ className: 'input-image-control' }) } />
       <p className="input-image-text">Drag and drop some images here, or click to select images</p>
       <div className="input-image-content">{images}</div>

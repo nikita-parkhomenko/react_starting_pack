@@ -7,7 +7,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 // local dependencies
 import { Logo } from '../../images';
 import { ReduxForm } from '../../components/redux-form-helpers';
-import InputCropImage from '../../components/image-crop/crop-image-input';
+import InputCropImage from '../../components/image-crop/my-crop-image/crop-image-input';
 
 const Welcome = memo(function Welcome () {
   return <Container fluid>
