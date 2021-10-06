@@ -3,15 +3,15 @@
 import _ from 'lodash';
 import cn from 'classnames';
 import { useDropzone } from 'react-dropzone';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 
 // local dependencies
-import { useCropImageModal } from './crop-image-modal';
+import DefImage from '../../../images';
 import { RFControlWrap } from '../../redux-form-helpers';
+import { useCropImageModal } from './crop-image-modal';
 
-const InputCropImage = props => {
-  const { input, meta, label, skipTouch, classNameFormGroup, usePopover, cropOptions, dir, ...attr } = props;
-  const [files, setFiles] = useState([]);
+export const InputCropImage = memo(function (props) {
+  const { input, meta, label, skipTouch, classNameFormGroup, usePopover, dir, ...attr } = props;
 
   let message = '';
   if (skipTouch || meta.touched) {
@@ -23,14 +23,9 @@ const InputCropImage = props => {
   // NOTE get modal window controls
   const [openImageCropModal] = useCropImageModal();
 
-  const onDrop = useCallback(acceptedFiles => {
-    setFiles(prevFiles => [...prevFiles, ...acceptedFiles.map(file =>
-      Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })
-    )]
-    );
-  }, []);
+  const onDrop = useCallback(acceptedFile => {
+    openImageCropModal({ file: acceptedFile, dir });
+  }, [openImageCropModal, dir]);
 
   // NOTE prepare dropzone controls
   const {
@@ -41,10 +36,10 @@ const InputCropImage = props => {
     isDragReject
   } = useDropzone({
     onDrop,
+    multiple: false,
     accept: 'image/jpe, image/jpg, image/jpeg, image/gif, image/png',
+    ...attr
   });
-
-  const images = files.map(({ name, preview }) => <img key={name} className="input-image-picture" src={preview} alt={name} />);
 
   return <RFControlWrap
     label={label}
@@ -57,10 +52,15 @@ const InputCropImage = props => {
       className: cn('input-image-container', { active: isDragActive, accept: isDragAccept, reject: isDragReject })
     }) }>
       <input { ...getInputProps({ className: 'input-image-control' }) } />
-      <p className="input-image-text">Drag and drop some images here, or click to select images</p>
-      <div className="input-image-content">{images}</div>
+      <DefImage
+        src={input.value}
+        defaultClassName="img-fluid"
+        defaultAlt="Input image preview"
+        defaultTitle="Input image preview"
+      />
     </div>
   </RFControlWrap>;
-};
+}
+);
 
 export default InputCropImage;

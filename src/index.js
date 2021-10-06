@@ -17,6 +17,7 @@ import { config } from './constants';
 import { history, store } from './store';
 import * as ROUTES from './constants/routes';
 import { Modal as ImageCropModal } from './components/image-crop';
+import { CropImageModal } from './components/image-crop/my-crop-image/crop-image-modal';
 
 import controller from './controller';
 
@@ -56,6 +57,7 @@ const App = memo(function App () {
       transitionOut="fadeOut"
     />
     <ImageCropModal />
+    <CropImageModal />
   </>;
 });
 

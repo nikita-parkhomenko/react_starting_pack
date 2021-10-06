@@ -8,11 +8,13 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 // local dependencies
 import { userEditModalCtrl } from './controller';
+import { IMG_DIR } from '../../../constants/spec';
 import { RFInput } from '../../../components/input';
 import AlertError from '../../../components/alert-error';
 import { BoxLoader } from '../../../components/preloader';
 import { isEmail } from '../../../services/validation.service';
 import { ReduxForm } from '../../../components/redux-form-helpers';
+import InputCropImage from '../../../components/image-crop/my-crop-image/crop-image-input';
 
 // configure
 export const useUserEditModal = () => {
@@ -43,6 +45,15 @@ export const UsersEditModal = memo(function UsersEditModal () {
       <AlertError className="animated fadeIn mb-3" active message={errorMessage} onClear={handleClearError} />
       <ModalBody>
         <BoxLoader active={!initialized}>
+          <Field
+            dir={IMG_DIR.USER}
+            name="profileImage.url"
+            component={InputCropImage}
+            accept="image/jpe, image/jpg, image/jpeg, image/gif, image/png"
+            label={<strong className="text-info required-asterisk">
+              Avatar
+            </strong>}
+          />
           <Field
             name="name"
             component={RFInput}
